@@ -6,6 +6,3 @@ def tuple_raw_input():
             return ( int(my_list[0]) , int(my_list[1]) )
         print "Please enter (x),(y)"
 
-person = tuple_raw_input()
-print "Got it!"
-print person
