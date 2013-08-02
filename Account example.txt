@@ -1,0 +1,6 @@
+JEREMY'S SIDE
+>>> send ("Hi") to user ("francis")
+
+FRANCIS' SIDE
+Jeremy said "Hi"!
+
