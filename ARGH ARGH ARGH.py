@@ -6,8 +6,8 @@ from getch import getch
 
 def player_sight_range():
 	player_x,player_y = start_point
-	for y in range(player_y-20,player_y+20):
-		for x in range(player_x-20,player_x+20):
+	for y in range(player_y-2,player_y+2):
+		for x in range(player_x-2,player_x+2):
 			found_item = item_at((x,y))
 			if found_item:
 				print "You can see a " + found_item.type + " at " + str(x) + "," + str(y) + "."
@@ -28,7 +28,7 @@ class JWoraldItem():
 # Function that returns an item if it is as the location
 def item_at(location):
 	for item in items:
-		if item.location == start_point:
+		if item.location == location:
 			return item
 
 
