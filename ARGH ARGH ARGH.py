@@ -4,20 +4,22 @@ import readline
 from getch import getch
 
 
-def player_sight_range():
-	player_x,player_y = start_point
-	for y in range(player_y-2,player_y+2):
-		for x in range(player_x-2,player_x+2):
-			found_item = item_at((x,y))
-			if found_item:
-				print "You can see a " + found_item.type + " at " + str(x) + "," + str(y) + "."
+# Function to check objects
+def items_near_location(location, distance):
+    location_x, location_y = location
+    found_items = []
+    for y in range (location_y-distance, location_y+distance):
+        for x in range (location_x-distance, location_x+distance):
+            found_item = item_at((x,y))
+            if found_item:
+                found_items.append(found_item)
+    return found_items
 
 
 
 
-
-
-
+		
+			
 
 class JWoraldItem():
 
@@ -35,7 +37,7 @@ def item_at(location):
 
 print "Jworald Software"
 print "Command Line Version"
-print "Code and ideas by Jeremy Potter"
+print "Code and ideas by Jeremy Potter"	
 print "Code assistant Francis Potter"
 print
 print "Please name your character."
@@ -47,7 +49,7 @@ player_name = raw_input()
 item_at_start_point = True
 while item_at_start_point:
 	print
-	print "Press enter to generate a world."
+	print "Press ENTER to generate a world."
 	enter = getpass.getpass("")
 	start_point = (random.randint(1,20),random.randint(1,20))
 	print player_name + " is at " + str(start_point)
@@ -68,18 +70,34 @@ while item_at_start_point:
 
 # Check the objects and give the player the next step.
 
-player_sight_range()
-print "Move by pressing M and check your inventory by pressing I."
-command_input = getch()
-if command_input == "M" or "m":
-	print "Use WASD keys to move."
-	move_to_input = getch()
-	if move_to_input == "W" or "w":
-		old_x,old_y = start_point
+keep_playin = True
+while keep_playin:
+	print "Now you are at " + str(start_point) + "."
+	items_near_player = items_near_location(start_point, 4)
+	if len(items_near_player) > 0:
+	    for item in items_near_player:
+	        print "You see a " + item.type + " at %i, %i" % item.location
+	else:
+	    print "There are no items near you."
+	print "Move with WASD, check your inventory by pressing I, and quit by pressing Q."
+	command_input = getch().upper()
+	old_x,old_y = start_point
+	if command_input == "W":
 		new_x = old_x
 		new_y = old_y-1
 		start_point = (new_x,new_y)
-		print "Now you are at " + str(start_point) + "."
-		player_sight_range()
-
-
+	if command_input == "A":
+		new_x = old_x-1
+		new_y = old_y
+		start_point = (new_x,new_y)
+	if command_input == "S":
+		new_x = old_x
+		new_y = old_y+1
+		start_point = (new_x,new_y)
+	if command_input == "D":
+		new_x = old_x+1
+		new_y = old_y
+		start_point = (new_x,new_y)
+	if command_input == "Q":	
+		print "Thank for playing!"
+		keep_playin = False
