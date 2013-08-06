@@ -4,6 +4,18 @@ import readline
 from getch import getch
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 # Function to check objects
 def items_near_location(location, distance):
     location_x, location_y = location
@@ -46,6 +58,7 @@ player_name = raw_input()
 
 # Build the world and place the character. Loop so if the character shows up dead, we can start over.
 
+inventory = []
 item_at_start_point = True
 while item_at_start_point:
 	print
@@ -98,6 +111,10 @@ while keep_playin:
 		new_x = old_x+1
 		new_y = old_y
 		start_point = (new_x,new_y)
+	if command_input == "I":
+		for item in inventory:
+			print "You have a " + item.type
+
 	if command_input == "Q":	
 		print "Thank for playing!"
 		keep_playin = False
