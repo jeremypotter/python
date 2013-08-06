@@ -53,7 +53,7 @@ print "Code and ideas by Jeremy Potter"
 print "Code assistant Francis Potter"
 print
 print "Please name your character."
-player_name = raw_input()
+player_name = raw_input(">>>")
 
 
 # Build the world and place the character. Loop so if the character shows up dead, we can start over.
@@ -64,8 +64,9 @@ while item_at_start_point:
 	print
 	print "Press ENTER to generate a world."
 	enter = getpass.getpass("")
+	
+
 	start_point = (random.randint(1,20),random.randint(1,20))
-	print player_name + " is at " + str(start_point)
 	item_types_string = "rock,tree,bush,bird,plant"
 	item_types = item_types_string.split(',')
 	items = []
@@ -85,8 +86,10 @@ while item_at_start_point:
 
 keep_playin = True
 while keep_playin:
-	print "Now you are at " + str(start_point) + "."
+	print player_name + " is at " + str(start_point)	
 	items_near_player = items_near_location(start_point, 4)
+	items_next_to_player = items_near_location(start_point, 1)
+	
 	if len(items_near_player) > 0:
 	    for item in items_near_player:
 	        print "You see a " + item.type + " at %i, %i" % item.location
@@ -94,6 +97,8 @@ while keep_playin:
 	    print "There are no items near you."
 	print "Move with WASD, check your inventory by pressing I, and quit by pressing Q."
 	command_input = getch().upper()
+	if ord(command_input) == 27:
+		keep_playin = False
 	old_x,old_y = start_point
 	if command_input == "W":
 		new_x = old_x
@@ -115,6 +120,7 @@ while keep_playin:
 		for item in inventory:
 			print "You have a " + item.type
 		print "You have no other items in your inventory."
+		exit_inventory = getpass.getpass("Press enter to continue.")
 	if command_input == "Q":	
 		print "Thank for playing!"
 		keep_playin = False
