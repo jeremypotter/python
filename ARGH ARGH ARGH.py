@@ -114,7 +114,7 @@ while keep_playin:
 	if command_input == "I":
 		for item in inventory:
 			print "You have a " + item.type
-
+		print "You have no other items in your inventory."
 	if command_input == "Q":	
 		print "Thank for playing!"
 		keep_playin = False
